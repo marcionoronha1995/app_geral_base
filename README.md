@@ -32,27 +32,27 @@ O sistema utiliza **Assinaturas Digitais Assimétricas**. Cada arquivo de funç�
 
 ```text
 Projeto_base /
-├── .venv/                   # Ambiente virtual Python (Isolamento de bibliotecas)
-├── .github/                 # Workflows para automação (GitHub Actions)
-├── docs/                    # Documentação técnica e de produto (Markdown/PDF)
-├── scripts/                 # Ferramentas de apoio (ex: Script de Assinatura Offline)
+├── .venv/                   # Ambiente virtual (Isolamento total)
+├── .github/                 # Automação de testes do Cadastro
+├── docs/                    # Especificação do Schema de Usuários
+├── scripts/                 # Gerador de Assinatura para novos arquivos .py
 │
-├── src/                     # Código-fonte (Tudo o que é "vivo" fica aqui)
-│   ├── backend/             # O Motor Python
-│   │   ├── core/            # Regras de Ouro: Seguranca, Triple Lock, Validador
-│   │   ├── services/        # Os 100 Componentes (1 arquivo = 1 função)
-│   │   │   ├── auth/        # Login, Cadastro, JWT
-│   │   │   ├── financeiro/  # Comissões, Pagamentos
-│   │   │   └── logs/        # Escrita na Caixa Preta
-│   │   ├── database/        # Orquestrador de Multi-bancos e Migrations
-│   │   └── api/             # Rotas de entrada (Endpoints)
+├── src/                     
+│   ├── backend/             
+│   │   ├── core/            # O "Secure Loader" que valida as 3 chaves
+│   │   ├── services/        # A inteligência do sistema base
+│   │   │   ├── identity/    # Cadastro de Usuários (CPF) e Perfis
+│   │   │   ├── tenants/     # Cadastro de Empresas (CNPJ) e Configurações
+│   │   │   └── audit/       # Gravação da "Caixa Preta" (Logs)
+│   │   ├── database/        # Orquestrador que abre o banco via CNPJ
+│   │   └── api/             # Endpoints (Ex: /api/v1/cadastrar)
 │   │
-│   └── frontend/            # A Interface (Bootstrap/HTML/CSS)
-│       ├── static/          # Arquivos imutáveis (CSS, JS, Imagens)
-│       └── templates/       # Páginas dinâmicas (Jinja2/HTML)
+│   └── frontend/            
+│       ├── static/          # CSS do formulário de cadastro (Bootstrap)
+│       └── templates/       # HTML de Cadastro, Login e Perfil
 │
-├── tests/                   # Testes automatizados (Garantia de qualidade)
-├── .env                     # Variáveis de ambiente (NÃO VAI PARA O GIT)
-├── .gitignore               # O que o Git deve ignorar (Definido anteriormente)
-├── requirements.txt         # Lista de bibliotecas do projeto
-└── README.md                # Manual de instruções do projeto
+├── tests/                   # Testes de estresse (Cadastrar 100 empresas)
+├── .env                     # Chaves mestras e conexões
+├── .gitignore               # Proteção para não subir segredos
+├── requirements.txt         # Bibliotecas (Flask/FastAPI, SQLAlchemy, Bcrypt)
+└── README.md                # Guia do sistema de Identidade
