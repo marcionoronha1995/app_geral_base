@@ -216,3 +216,27 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- BLOQUEIO DE SISTEMA (Corrige o erro desktop.ini) ---
+[Dd]esktop.ini
+.git/refs/desktop.ini
+.git/refs/remotes/desktop.ini
+Thumbs.db
+.DS_Store
+
+# --- AMBIENTE E DEPENDÊNCIAS ---
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+
+# --- SEGURANÇA E CONFIGURAÇÕES ---
+.env
+*.pem
+*.key
+*.sig
+
+# --- BANCO DE DATOS ---
+*.sqlite3
+*.db
