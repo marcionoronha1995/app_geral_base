@@ -240,3 +240,5 @@ __pycache__/
 # --- BANCO DE DATOS ---
 *.sqlite3
 *.db
+
+#
