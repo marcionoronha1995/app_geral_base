@@ -5,7 +5,14 @@ import subprocess
 import sys
 
 # Lista de dependências essenciais para o seu projeto
-REQUIREMENTS = ["python-dotenv", "flask", "pandas", "openpyxl", "ruff"]
+REQUIREMENTS = [
+    "python-dotenv",
+    "flask",
+    "pandas",
+    "openpyxl",
+    "ruff",
+    "jupyter_http_over_ws",
+]
 
 
 def detect_environment():

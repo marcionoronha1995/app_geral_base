@@ -1,18 +1,11 @@
-import importlib.metadata
 import pathlib
 import subprocess
 import sys
 
+import init_env
+
 # Configurações de Identidade do Projeto
 PROJECT_NAME = "App Geral Login - V8"
-DEPENDENCIES = [
-    "python-dotenv",
-    "flask",
-    "pandas",
-    "openpyxl",
-    "ruff",
-    "jupyter_http_over_ws",
-]
 
 
 def run_step(description, command_list):
@@ -36,29 +29,14 @@ def setup_environment():
     # 1. Limpeza de Cache do PIP (Resolve os avisos de Deserialization)
     run_step("Limpando cache do instalador", ["-m", "pip", "cache", "purge"])
 
-    # 2. Sincronização de Dependências
-    missing = [d for d in DEPENDENCIES if not is_installed(d)]
-    if missing:
-        run_step(f"Instalando {missing}", ["-m", "pip", "install"] + missing)
+    # 2. Sincronização de Ambiente (usando init_env.py)
+    init_env.install_missing_dependencies()
 
-    # 3. Sanitização do Sistema (Remoção de desktop.ini)
-    try:
-        from src.backend.core.secure_loader import cleanup_system_files
-
-        cleanup_system_files()
-    except ImportError:
-        print("ℹ️ Módulo de limpeza não encontrado.")
+    # 3. Verificações Essenciais (Limpeza de sistema e geração de .env)
+    init_env.verify_essentials()
 
     # 4. Abertura das Janelas de Serviço (PowerShell Externo)
     launch_services(root)
-
-
-def is_installed(package):
-    try:
-        importlib.metadata.version(package)
-        return True
-    except importlib.metadata.PackageNotFoundError:
-        return False
 
 
 def launch_services(root):
